@@ -309,7 +309,7 @@ paprikapulver:['Paprikapulver edelsüß','TL',.1,'V',[],'0000',1],
 kuemmel:['Kümmel','TL',.05,'V',[],'0000',1],
 majoran:['Majoran','TL',.08,'V',[],'0000',1],
 lorbeer:['Lorbeerblätter','Stk',.05,'V',[],'0000',1],
-gemuesesuppe:['Gemüsesuppe Pulver','TL',.1,'V',['sellerie'],'0000',1],
+gemuesesuppe:['Gemüsesuppe Pulver ohne Geschmacksverstärker','TL',.1,'V',['sellerie'],'0000',1],
 senf:['Senf','TL',.05,'V',['senf'],'0000',1],
 gf_mehl:['Glutenfreies Mehl','g',4.5,'S',[],'0000'],
 gf_broesel:['Glutenfreie Brösel','g',10,'S',[],'0000'],
@@ -342,6 +342,9 @@ walnuss:['Walnüsse','g',22,'T',['nuesse'],'+00+'],
 kuerbiskerne:['Kürbiskerne','g',18,'T',[],'+00+'],
 zimt:['Zimt','TL',.1,'V',[],'0000',1],
 speck:['Speck','g',16,'F',['schwein'],'----'],
+kotelett:['Schweinskotelett','g',11,'F',['schwein'],'----'],
+leberkaese:['Leberkäse','g',12,'F',['schwein'],'----'],
+putenleberkaese:['Putenleberkäse','g',15,'F',[],'000+'],
 kochschinken:['Kochschinken','g',14,'F',['schwein'],'----'],
 kidneybohnen:['Kidneybohnen aus der Dose','g',3.5,'T',[],'-0--'],
 weissebohnen:['Weiße Bohnen aus der Dose','g',3.5,'T',[],'00-0'],
@@ -400,12 +403,12 @@ zuckerschoten:['Zuckerschoten','g',12,'G',[],'0+00'],
 erbsen:['Erbsen tiefgekühlt','g',4,'K',[],'0+++']
 };
 const ALSWAP={
- schwein:{kochschinken:'putenschinken',frankfurter:'putenwurst',speck:'putenschinken',knacker:'rindswurst',extrawurst:'putenwurst'},
+ schwein:{kotelett:'pute',leberkaese:'putenleberkaese',kochschinken:'putenschinken',frankfurter:'putenwurst',speck:'putenschinken',knacker:'rindswurst',extrawurst:'putenwurst'},
  gluten:{tortilla:'gf_tortilla',toastbrot:'gf_brot',spaetzlemehl:'gf_mehl',hoernchen:'gf_nudeln',pizzateig:'gf_pizza',mehl:'gf_mehl',griess:'hirsegriess',broesel:'gf_broesel',fleckerl:'gf_nudeln',strudelteig:'gf_strudel',knoedelbrot:'gf_brot',brot:'gf_brot',haferflocken:'gf_hafer',semmel:'gf_semmel',spaghetti:'gf_nudeln'},
  laktose:{milch:'lf_milch',butter:'lf_butter',obers:'lf_obers',sauerrahm:'lf_sauerrahm',topfen:'lf_topfen',bergkaese:'lf_kaese',joghurt:'lf_joghurt',feta:'lf_kaese',parmesan:'lf_kaese',mozzarella:'lf_kaese'},
  ei:{ei:'eiersatz'}, sellerie:{wurzelgemuese:'karotte',gemuesesuppe:'suppe_os'}, senf:{senf:null}, fisch:{}, nuesse:{walnuss:'kuerbiskerne',pinienkerne:'kuerbiskerne'}
 };
-const BSWAP={kochschinken:'putenschinken',tortilla:'gf_tortilla',toastbrot:'gf_brot',frankfurter:'putenwurst',spaetzlemehl:'gf_mehl',speck:'putenschinken',knacker:'rindswurst',extrawurst:'putenwurst',hoernchen:'gf_nudeln',pizzateig:'gf_pizza',spaghetti:'gf_nudeln',garnelen:'lachs',kokosmilch:'hafercuisine',tamari:'kokosaminos',semmel:'gf_semmel',mehl:'gf_mehl',griess:'hirsegriess',broesel:'gf_broesel',fleckerl:'gf_nudeln',knoedelbrot:'gf_brot',brot:'gf_brot',strudelteig:'gf_strudel',
+const BSWAP={kotelett:'pute',leberkaese:'putenleberkaese',kochschinken:'putenschinken',tortilla:'gf_tortilla',toastbrot:'gf_brot',frankfurter:'putenwurst',spaetzlemehl:'gf_mehl',speck:'putenschinken',knacker:'rindswurst',extrawurst:'putenwurst',hoernchen:'gf_nudeln',pizzateig:'gf_pizza',spaghetti:'gf_nudeln',garnelen:'lachs',kokosmilch:'hafercuisine',tamari:'kokosaminos',semmel:'gf_semmel',mehl:'gf_mehl',griess:'hirsegriess',broesel:'gf_broesel',fleckerl:'gf_nudeln',knoedelbrot:'gf_brot',brot:'gf_brot',strudelteig:'gf_strudel',
  erdaepfel:'suesskartoffel',milch:'hafermilch',lf_milch:'hafermilch',obers:'hafercuisine',lf_obers:'hafercuisine',butter:'olivenoel',lf_butter:'olivenoel',
  rind:'putenfleisch',suppenfleisch:'putenfleisch',rindfaschiert:'putenfaschiert',huhn:'putenfleisch',hendlkeule:'putenfleisch'};
 
@@ -606,7 +609,7 @@ R.push(
 );
 const FOODS=[
  ['Basis',[['nudeln','Nudeln',['fleckerl','gf_nudeln','reisnudeln','glasnudeln','spaghetti','hoernchen'],/nudel|fleckerl/i],['reis','Reis',['reis']],['erdaepfel','Erdäpfel',['erdaepfel']],['knoedel','Knödel',[],/knödel/i],['brot','Brot und Semmel',['brot','semmel']],['suesskartoffel','Süßkartoffel',['suesskartoffel']]]],
- ['Fleisch und Fisch',[['huhn','Huhn',['huhn','hendlkeule']],['pute','Pute',['pute','putenfleisch','putenfaschiert']],['rind','Rind',['rind','suppenfleisch','tafelspitz','rindfaschiert']],['wild','Wild und Lamm',['hirsch','lamm','kaninchen']],['fisch','Fisch',['forelle','lachsforelle','lachs','kabeljau','raeucherforelle','garnelen','thunfisch']],['wurst','Wurst und Speck',['kochschinken','frankfurter','putenwurst','knacker','extrawurst','speck','rindswurst','putenschinken']]]],
+ ['Fleisch und Fisch',[['huhn','Huhn',['huhn','hendlkeule']],['pute','Pute',['pute','putenfleisch','putenfaschiert']],['rind','Rind',['rind','suppenfleisch','tafelspitz','rindfaschiert']],['wild','Wild und Lamm',['hirsch','lamm','kaninchen']],['fisch','Fisch',['forelle','lachsforelle','lachs','kabeljau','raeucherforelle','garnelen','thunfisch']],['wurst','Wurst und Speck',['leberkaese','putenleberkaese','kochschinken','frankfurter','putenwurst','knacker','extrawurst','speck','rindswurst','putenschinken']]]],
  ['Gemüse',[['brokkoli','Brokkoli',['brokkoli']],['karotte','Karotten',['karotte','wurzelgemuese']],['zucchini','Zucchini',['zucchini']],['spinat','Spinat',['spinat']],['pilze','Pilze',['eierschwammerl','champignons']],['kuerbis','Kürbis',['kuerbis']],['kraut','Kraut und Kohl',['kraut','rotkraut','chinakohl','kohlrabi']],['paprika','Paprika',['paprika']],['zwiebel','Zwiebel und Lauch',['zwiebel','fruehlingszwiebel','lauch']],['huelsen','Linsen und Bohnen',['linsen','kaeferbohnen','kichererbsen','kidneybohnen','weissebohnen','fisolen','erbsen']]]],
  ['Sonstiges',[['ei','Ei',['ei']],['kaese','Käse',['bergkaese','feta','mozzarella','parmesan']],['topfen','Topfen und Joghurt',['topfen','joghurt']],['sosse','Rahmsoßen',['obers','sauerrahm']],['curry','Curry und Asiatisch',['currypulver','kokosmilch','tamari','ingwer'],/curry|wok|thai|teriyaki/i],['suess','Süßes',['marmelade','zwetschken','staubzucker']],['scharf','Scharfes',['currypulver']]]]
 ];
@@ -743,7 +746,53 @@ R.push(
 {id:'overnight_oats',n:'Overnight Oats mit Beeren',c:['Frühstück','Neu'],t:5,i:[['haferflocken',50],['joghurt',100],['milch',80],['beeren',60],['honig',5]],
  s:['Am Abend Haferflocken mit Joghurt und Milch in einem Glas verrühren.','Über Nacht in den Kühlschrank stellen.','In der Früh Beeren und etwas Honig drauf. Fertig zum Mitnehmen.']},
 {id:'bananen_pancakes',n:'Bananen Pancakes mit Joghurt',c:['Frühstück','Neu'],t:15,x:['ei'],i:[['banane',100],['ei',2],['haferflocken',30],['oel',.5],['joghurt',60],['beeren',40]],
- s:['Banane mit einer Gabel zerdrücken, mit Eiern und Haferflocken verrühren.','Kleine Pancakes in wenig Öl auf jeder Seite 2 Minuten braten.','Mit Joghurt und Beeren servieren. Ohne Zucker und trotzdem süß.']}
+ s:['Banane mit einer Gabel zerdrücken, mit Eiern und Haferflocken verrühren.','Kleine Pancakes in wenig Öl auf jeder Seite 2 Minuten braten.','Mit Joghurt und Beeren servieren. Ohne Zucker und trotzdem süß.']},
+{id:'putenstreifen_paprika',n:'Putenstreifen mit Paprika und Reis',c:['Fleisch','Neu'],t:25,i:[['putenfleisch',140],['paprika',1],['zwiebel',30],['paprikapulver',1],['oel',.5],['joghurt',40],['reis',60],['salz',.3]],
+ s:['Reis aufsetzen. Pute in Streifen, Paprika und Zwiebel in Spalten schneiden.','Pute in wenig Öl scharf anbraten, herausnehmen.','Zwiebel und Paprika 5 Minuten braten, Paprikapulver und einen Schuss Wasser dazu.','Pute zurück, salzen, pfeffern und mit einem Klecks Joghurt und Reis servieren.']},
+{id:'huhn_ofengemuese',n:'Hühnerfilet mit Ofengemüse und Erdäpfeln',c:['Fleisch','Neu'],t:40,i:[['huhn',140],['erdaepfel',200],['zucchini',100],['paprika',.5],['karotte',80],['olivenoel',1],['thymian',.5],['knoblauch',.5],['salz',.4]],
+ s:['Rohr auf 200 Grad vorheizen. Erdäpfel und Karotten in Spalten, Zucchini und Paprika in grobe Stücke schneiden.','Gemüse mit Olivenöl, Thymian, Knoblauch, Salz und Pfeffer am Blech mischen und 15 Minuten backen.','Huhn salzen, pfeffern, aufs Blech legen und alles weitere 20 Minuten backen.','Ein Blech, wenig Abwasch, kaum Fett.']},
+{id:'kabeljau_reis',n:'Kabeljau mit Erbsen, Karotten und Reis',c:['Fisch','Neu'],t:25,i:[['kabeljau',140],['erbsen',80],['karotte',80],['zitrone',.25],['dill',.1],['olivenoel',.5],['reis',60],['salz',.3]],
+ s:['Reis aufsetzen. Karotten in Scheiben schneiden und mit den Erbsen in wenig Wasser 8 Minuten dünsten.','Kabeljau salzen und in einer beschichteten Pfanne mit wenig Olivenöl je Seite 3 Minuten braten.','Mit Zitrone und Dille servieren. Mild, ohne Gräten, auch für Kinder gut.']},
+{id:'lachs_ofen',n:'Lachs aus dem Rohr mit Brokkoli und Erdäpfeln',c:['Fisch','Neu'],t:30,i:[['lachs',120],['brokkoli',150],['erdaepfel',200],['zitrone',.25],['dill',.1],['salz',.3]],
+ s:['Rohr auf 200 Grad vorheizen. Erdäpfel kochen.','Lachs auf ein Blech mit Backpapier legen, salzen, Zitronenscheiben drauf und 12 bis 15 Minuten garen.','Brokkoli in Röschen 5 Minuten dämpfen.','Alles mit Dille servieren. Der Lachs bringt sein eigenes Fett mit, ein Öl braucht es nicht.']},
+{id:'puten_bolognese',n:'Putenbolognese mit viel Gemüse und Spaghetti',c:['Fleisch','Neu'],t:30,i:[['putenfaschiert',110],['karotte',60],['zucchini',80],['zwiebel',30],['passata',150],['tomatenmark',1],['olivenoel',.5],['basilikum',.1],['spaghetti',90],['salz',.3]],
+ s:['Zwiebel, Karotte und Zucchini ganz fein reiben oder hacken. So sehen Kinder das Gemüse kaum.','Putenfaschiertes in wenig Olivenöl krümelig braten, Gemüse und Tomatenmark dazu.','Passierte Paradeiser dazu und 15 Minuten köcheln, mit Salz, Pfeffer und Basilikum abschmecken.','Mit Spaghetti servieren.']},
+{id:'linsen_bolognese',n:'Linsenbolognese mit Spaghetti',c:['Gemüse','Neu'],t:30,i:[['linsen',70],['karotte',60],['zwiebel',30],['passata',150],['tomatenmark',1],['olivenoel',.5],['basilikum',.1],['spaghetti',90],['salz',.3]],
+ s:['Zwiebel und Karotte fein würfeln und in wenig Olivenöl anschwitzen.','Linsen, Tomatenmark, Paradeiser und 250 ml Wasser dazu und 20 Minuten köcheln, bis die Linsen weich sind.','Mit Salz, Pfeffer und Basilikum abschmecken und mit Spaghetti servieren.']},
+{id:'huhn_joghurtdip',n:'Hühnerstreifen mit Joghurtdip, Gurke und Reis',c:['Fleisch','Neu'],t:25,i:[['huhn',140],['joghurt',100],['gurke',.3],['knoblauch',.3],['dill',.1],['paprikapulver',.5],['oel',.5],['reis',60],['salz',.3]],
+ s:['Reis aufsetzen. Huhn in Streifen schneiden, mit Paprikapulver, Salz und Pfeffer würzen.','In wenig Öl rundum braten, bis es durch ist.','Joghurt mit geriebener Gurke, Knoblauch, Dille und Salz verrühren.','Huhn mit Reis und Dip servieren. Den Dip ohne Knoblauch für die Kinder abzweigen.']},
+{id:'putenlaibchen_ofen',n:'Putenlaibchen aus dem Rohr mit Erdäpfelpüree',c:['Fleisch','Neu'],t:40,i:[['putenfaschiert',120],['ei',.3],['broesel',10],['zwiebel',20],['petersilie',.1],['erdaepfel',200],['milch',60],['karotte',100],['salz',.4]],
+ s:['Rohr auf 200 Grad vorheizen. Erdäpfel und Karotten kochen.','Faschiertes mit Ei, Bröseln, fein gehackter Zwiebel, Petersilie, Salz und Pfeffer verkneten und kleine Laibchen formen.','Auf Backpapier rund 20 Minuten backen, einmal wenden. Ganz ohne Fett aus der Pfanne.','Erdäpfel mit warmer Milch zu Püree stampfen und mit den Karotten servieren.']},
+{id:'ofenomelett',n:'Gemüseomelett aus dem Rohr mit Topfen',c:['Gemüse','Neu'],t:25,i:[['ei',2.5],['topfen',50],['paprika',.5],['zucchini',80],['schnittlauch',.1],['brot',50],['salz',.3]],
+ s:['Rohr auf 190 Grad vorheizen. Paprika und Zucchini klein würfeln.','Eier mit Topfen, Salz und Pfeffer glatt rühren, Gemüse untermischen.','In eine Form mit Backpapier gießen und 20 Minuten backen.','In Stücke schneiden, Schnittlauch drüber und mit Brot servieren. Kalt auch super als Jause.']},
+{id:'forelle_ofenerdaepfel',n:'Forellenfilet mit Ofenerdäpfeln und Gurkensalat',c:['Fisch','Neu'],t:35,i:[['forelle',140],['erdaepfel',220],['gurke',.4],['joghurt',40],['dill',.1],['olivenoel',.5],['zitrone',.2],['salz',.4]],
+ s:['Rohr auf 200 Grad vorheizen. Erdäpfel in Spalten schneiden, mit wenig Olivenöl und Salz mischen und 30 Minuten backen.','Gurke hobeln, mit Joghurt, Dille und Salz anmachen.','Forelle salzen und die letzten 10 Minuten mit aufs Blech legen.','Mit Zitrone servieren.']},
+{id:'putenschnitzel_natur',n:'Putenschnitzel natur mit Reis und Karotten',c:['Fleisch','Neu'],t:25,i:[['pute',140],['reis',60],['karotte',120],['oel',.5],['petersilie',.1],['zitrone',.2],['salz',.3]],
+ s:['Reis aufsetzen. Karotten in Scheiben schneiden und in wenig Wasser weich dünsten, Petersilie drüber.','Schnitzel dünn klopfen, salzen und pfeffern.','In einer beschichteten Pfanne mit wenig Öl je Seite 2 bis 3 Minuten braten.','Mit Zitrone, Reis und Karotten servieren. Das Schnitzel ohne Panier, Kinder mögen es trotzdem.']},
+{id:'topfen_beeren',n:'Topfen mit Beeren und Haferflocken',c:['Frühstück','Neu'],t:5,i:[['topfen',125],['joghurt',60],['beeren',100],['haferflocken',20],['honig',5,'o']],
+ s:['Topfen mit Joghurt glatt rühren.','Aufgetaute Beeren und Haferflocken drüber.','Wer es süßer mag, ein paar Tropfen Honig. Viel Eiweiß, hält bis Mittag.']},
+{id:'thunfisch_reissalat',n:'Reissalat mit Thunfisch und Mais',c:['Kalt','Fisch','Neu'],t:20,i:[['thunfisch',80],['reis',50],['mais',40],['paprika',.5],['gurke',.2],['joghurt',50],['zitrone',.2],['salz',.3]],
+ s:['Reis kochen und auskühlen lassen.','Paprika und Gurke klein würfeln, Thunfisch abtropfen lassen.','Alles mit Joghurt, Zitronensaft, Salz und Pfeffer mischen.','Hält im Kühlschrank 2 Tage, auch gut als Jause.']},
+{id:'airfryer_keulen',n:'Hühnerkeulen mit Erdäpfelspalten aus dem Airfryer',c:['Fleisch','Neu'],t:35,i:[['hendlkeule',250],['erdaepfel',250],['oel',1],['paprikapulver',1],['gurke',.3],['joghurt',50],['salz',.4]],
+ s:['Keulen mit der Hälfte vom Öl, Paprikapulver und Salz einreiben.','Erdäpfel ungeschält in Spalten schneiden, mit dem restlichen Öl und Salz mischen.','Keulen im Airfryer bei 190 Grad 25 Minuten garen, nach der Hälfte wenden. Die Spalten die letzten 18 Minuten dazu. Im Rohr bei 200 Grad Umluft rund 40 Minuten.','Mit Gurkensticks und Joghurt zum Tunken servieren. Gegessen wird mit den Fingern.']},
+{id:'bratkartoffeln',n:'Bratkartoffeln mit Spiegelei und Gurkensalat',c:['Gemüse','Neu'],t:30,i:[['erdaepfel',250],['zwiebel',30],['oel',1.5],['ei',2],['gurke',.4],['essig',1],['salz',.4]],
+ s:['Erdäpfel kochen, schälen und in Scheiben schneiden. Am besten schon vom Vortag.','In Öl mit der Zwiebel goldbraun und knusprig braten, salzen.','Spiegeleier braten.','Gurke hobeln, mit Essig, Salz und etwas Wasser anmachen und dazu servieren.']},
+{id:'nuggets',n:'Chicken Sticks aus dem Rohr mit Gemüsesticks',c:['Fleisch','Neu'],t:30,i:[['huhn',130],['ei',.3],['broesel',25],['paprikapulver',.5],['oel',.5],['karotte',60],['gurke',.2],['paprika',.3],['joghurt',40],['salz',.3]],
+ s:['Rohr auf 220 Grad vorheizen. Huhn in mundgerechte Stücke schneiden und salzen.','Erst durch verquirltes Ei ziehen, dann in Bröseln mit Paprikapulver wälzen.','Auf Backpapier legen, mit wenig Öl beträufeln und 15 Minuten knusprig backen, einmal wenden. Im Airfryer 10 Minuten.','Karotte, Gurke und Paprika in Sticks schneiden und mit Joghurt zum Tunken servieren.']},
+{id:'pizzatoast',n:'Schnelle Pizzatoasts aus dem Rohr',c:['Fleisch','Neu'],t:15,i:[['toastbrot',80],['passata',40],['kochschinken',40],['mozzarella',50],['mais',20],['salz',.1],['salat',.2,'o']],
+ s:['Rohr auf 220 Grad vorheizen.','Toastscheiben aufs Blech legen und mit passierten Paradeisern bestreichen.','Schinken, Mais und Mozzarella drauf, jedes Kind belegt seinen selbst.','8 bis 10 Minuten backen, bis der Käse blubbert. Wer mag, Salat dazu.']},
+{id:'zucchini_cordon',n:'Zucchini Cordon Bleu mit Petersilerdäpfeln',c:['Gemüse','Fleisch','Neu'],t:40,i:[['zucchini',200],['kochschinken',30],['bergkaese',30],['mehl',15],['ei',.5],['broesel',25],['oel',1],['erdaepfel',200],['petersilie',.1],['salz',.4]],
+ s:['Rohr auf 200 Grad vorheizen. Erdäpfel kochen.','Zucchini schräg in fingerdicke Scheiben schneiden und salzen. Je zwei Scheiben mit Schinken und Käse dazwischen zusammenlegen.','In Mehl, Ei und Bröseln panieren, auf Backpapier legen, mit wenig Öl beträufeln und 20 Minuten backen, einmal wenden.','Erdäpfel mit Petersilie schwenken und dazu servieren. Ohne Schinken wird es vegetarisch.']},
+{id:'gebackenes_gemuese',n:'Gebackenes Gemüse mit Joghurtdip',c:['Gemüse','Neu'],t:35,i:[['zucchini',150],['champignons',100],['karotte',80],['mehl',20],['ei',1],['broesel',40],['oel',1],['joghurt',80],['schnittlauch',.1],['erdaepfel',150],['salz',.4]],
+ s:['Rohr auf 210 Grad vorheizen. Zucchini und Karotten in Scheiben, Champignons halbieren. Erdäpfel in Spalten schneiden.','Gemüse salzen, in Mehl, Ei und Bröseln panieren.','Mit den Erdäpfelspalten auf Backpapier legen, mit wenig Öl beträufeln und rund 20 Minuten goldbraun backen.','Joghurt mit Schnittlauch und Salz verrühren und zum Tunken dazu.']},
+{id:'leberkaese_pueree',n:'Gebratener Leberkäse mit Erdäpfelpüree und Spiegelei',c:['Fleisch','Neu'],t:25,i:[['leberkaese',130],['erdaepfel',220],['milch',60],['butter',10],['ei',1],['essiggurkerl',30],['senf',1],['salz',.3]],
+ s:['Erdäpfel kochen und mit warmer Milch und Butter zu Püree stampfen.','Leberkäse in dicke Scheiben schneiden und in einer Pfanne ohne Fett auf beiden Seiten knusprig braten.','Spiegeleier braten.','Mit Püree, Senf und Gurkerl servieren.']},
+{id:'letscho_kotelett',n:'Kotelett mit Letscho und Reis',c:['Fleisch','Neu'],t:35,i:[['kotelett',160],['paprika',1.5],['paradeiser',120],['zwiebel',50],['paprikapulver',1],['oel',1],['reis',60],['salz',.4]],
+ s:['Reis aufsetzen. Zwiebel in Streifen, Paprika in Streifen, Paradeiser in Stücke schneiden.','Zwiebel in der Hälfte vom Öl anschwitzen, Paprika dazu und 10 Minuten braten, dann Paradeiser und Paprikapulver dazu und 10 Minuten zugedeckt dünsten. Salzen.','Kotelett salzen, pfeffern und im restlichen Öl je Seite 3 bis 4 Minuten braten.','Mit Letscho und Reis servieren.']},
+{id:'letscho_reis',n:'Letscho mit Reis und Spiegelei',c:['Gemüse','Neu'],t:30,i:[['paprika',2],['paradeiser',150],['zwiebel',50],['paprikapulver',1],['oel',1],['reis',60],['ei',1],['salz',.4]],
+ s:['Reis aufsetzen. Zwiebel und Paprika in Streifen, Paradeiser in Stücke schneiden.','Zwiebel in Öl anschwitzen, Paprika dazu und 10 Minuten braten.','Paradeiser und Paprikapulver dazu und zugedeckt 10 Minuten dünsten, salzen und pfeffern.','Mit Reis servieren, wer mag mit Spiegelei obendrauf.']},
+{id:'rindsrouladen',n:'Rindsrouladen mit Erdäpfelpüree',c:['Fleisch','Neu'],t:110,i:[['rind',150],['speck',15],['essiggurkerl',30],['karotte',40],['senf',1],['zwiebel',60],['tomatenmark',1],['oel',1],['erdaepfel',220],['milch',60],['salz',.4]],
+ s:['Fleisch dünn klopfen, salzen, pfeffern und mit Senf bestreichen.','Mit Speck, Gurkerl, Karottenstiften und etwas Zwiebel belegen, fest einrollen und mit Zahnstocher oder Spagat fixieren.','Rouladen in Öl rundum anbraten, herausnehmen. Restliche Zwiebel und Tomatenmark anrösten, mit Wasser aufgießen, Rouladen zurück und zugedeckt rund 90 Minuten schmoren.','Sauce abschmecken und mit Erdäpfelpüree servieren. Dazu passen auch Nudeln.']}
 );
 // Reste: Quelle -> [Gericht am nächsten Tag, was übrig bleibt, Zutat der Quelle, Zutat im Restgericht]
 const LEFT={tafelspitz:['rindfleischsalat','Fleisch','tafelspitz','suppenfleisch'],rindsuppe:['rindfleischsalat','Suppenfleisch','suppenfleisch','suppenfleisch'],ofenhendl:['huehnersuppe','Hendl','hendlkeule','hendlkeule'],schnitzel:['groestl','gekochte Erdäpfel','erdaepfel','erdaepfel'],forelle:['groestl','gekochte Erdäpfel','erdaepfel','erdaepfel'],dillfisolen:['groestl','gekochte Erdäpfel','erdaepfel','erdaepfel'],paprikahendl:['risibisi','Reis','reis','reis'],kaninchen:['risibisi','Reis','reis','reis'],huehnercurry:['risibisi','Reis','reis','reis']};
@@ -769,7 +818,7 @@ Object.keys(ING).forEach(k=>{const I=ING[k];GRP[k]=I[3]==='F'?'E':(I[3]==='G'||I
 'zucker staubzucker marmelade honig zwetschken kokosmilch'.split(' ').forEach(k=>GRP[k]='Z');
 'apfel beeren zitrone banane'.split(' ').forEach(k=>GRP[k]='O');
 'butter lf_butter obers lf_obers sauerrahm lf_sauerrahm walnuss kuerbiskerne hafercuisine kernoel leinoel'.split(' ').forEach(k=>GRP[k]='F');
-Object.assign(PRO,{ei:13,topfen:12,lf_topfen:12,joghurt:4,lf_joghurt:4,bergkaese:26,lf_kaese:26,feta:16,linsen:24,kaeferbohnen:7,kichererbsen:7,kidneybohnen:7,weissebohnen:7,thunfisch:25,mozzarella:20,parmesan:33,milch:3.4,lf_milch:3.4,haferflocken:13,gf_hafer:13,kuerbiskerne:30,walnuss:15,reis:7,reisnudeln:6,mehl:10,brot:7,knoedelbrot:9,semmel:8});
+Object.assign(PRO,{spaghetti:12,fleckerl:12,hoernchen:12,gf_nudeln:7,ei:13,topfen:12,lf_topfen:12,joghurt:4,lf_joghurt:4,bergkaese:26,lf_kaese:26,feta:16,linsen:24,kaeferbohnen:7,kichererbsen:7,kidneybohnen:7,weissebohnen:7,thunfisch:25,mozzarella:20,parmesan:33,milch:3.4,lf_milch:3.4,haferflocken:13,gf_hafer:13,kuerbiskerne:30,walnuss:15,reis:7,reisnudeln:6,mehl:10,brot:7,knoedelbrot:9,semmel:8});
 Object.keys(ING).forEach(k=>{if(ING[k][3]==='F'&&!(k in PRO))PRO[k]=ING[k][4].includes('fisch')?20:21});
 const STKG={ei:60,kohlrabi:300,paprika:150,gurke:300,salat:200,zitrone:0,fenchel:250,lauch:200,semmel:60,gf_semmel:60,lorbeer:0,eiersatz:0};
 function grams(k,q){const u=ING[k][1];if(u==='g'||u==='ml')return q;if(u==='Stk')return q*(k in STKG?STKG[k]:100);if(u==='Zehe')return q*5;if(u==='Bund')return q*30;if(u==='EL')return q*10;return q*4}
@@ -778,7 +827,7 @@ function tags(r){if(TAGC[r.id])return TAGC[r.id];let E=0,G=0,K=0,Z=0,P=0;
   for(const [k,q] of r.i){const g=grams(k,q),gr=GRP[k];P+=g*(PRO[k]||0)/100;if(gr==='E')E+=g;else if(gr==='G')G+=g;else if(gr==='K')K+=g;else if(gr==='Z')Z+=g;}
   const fr=r.c.includes('Frühstück'), meat=r.i.some(([k])=>ING[k][3]==='F');
   return TAGC[r.id]={P,G,K,eiweiss:P>=(fr?18:28),gemuese:G>=(fr?120:220),leicht:K<=(fr?50:60)&&Z<=15&&!r.c.includes('Süß'),veg:!meat,reisnudel:r.i.some(([k])=>k==='reisnudeln'||k==='glasnudeln')};}
-const TMOK=new Set('chili chili_veg dal bohnensuppe erdaepfelsuppe paradeissuppe bohnen_eintopf overnight_oats tomatennudeln milchreis griesskoch risibisi haschee bolognese linsen_knoedel dillfisolen erbsensuppe gefuellte_paprika knacker_spinat fasch_laibchen eingebrannter_hund gulasch erdgulasch linsen rindsuppe kuerbis griess krautfleckerl spinatknoedel faschiert paprikahendl kaninchen kasnudeln schwammerl jause eiaufstrich kaiserschmarrn topfenknoedel kohlrabi huehnersuppe rahmspinat haferbrei hirsebrei topfenbeeren palatschinken curry rindseintopf lammeintopf brokkolisuppe fischeintopf huehnercurry putencurry kokossuppe lachs_suesskartoffel lachsforelle forellensalat zucchini reisnudelsuppe tafelspitz'.split(' '));
+const TMOK=new Set('letscho_reis rindsrouladen puten_bolognese linsen_bolognese chili chili_veg dal bohnensuppe erdaepfelsuppe paradeissuppe bohnen_eintopf overnight_oats tomatennudeln milchreis griesskoch risibisi haschee bolognese linsen_knoedel dillfisolen erbsensuppe gefuellte_paprika knacker_spinat fasch_laibchen eingebrannter_hund gulasch erdgulasch linsen rindsuppe kuerbis griess krautfleckerl spinatknoedel faschiert paprikahendl kaninchen kasnudeln schwammerl jause eiaufstrich kaiserschmarrn topfenknoedel kohlrabi huehnersuppe rahmspinat haferbrei hirsebrei topfenbeeren palatschinken curry rindseintopf lammeintopf brokkolisuppe fischeintopf huehnercurry putencurry kokossuppe lachs_suesskartoffel lachsforelle forellensalat zucchini reisnudelsuppe tafelspitz'.split(' '));
 const tmOn=()=>(S.settings.tm||'gern')!=='nein';
 const cookidoo=r=>'https://cookidoo.at/search/de-AT?query='+encodeURIComponent(r.n.split(' mit ')[0].replace(/^(Klare|Steirischer|Kärntner) /,''));
 const PSRC={F:'Fleisch',Fi:'Fisch',E:'Ei',M:'Milch',H:'Hülsenfrüchte'};
@@ -788,10 +837,18 @@ const PSC={};function psrc(r){if(PSC[r.id])return PSC[r.id];let best=null,bv=0;c
     if(ING[k][4].includes('fisch'))t='Fi';else if(ING[k][3]==='F')t='F';else if(k==='ei')t='E';else if(MILCHE.has(k))t='M';else if(HUELS.has(k))t='H';
     if(t)acc[t]=(acc[t]||0)+g}
   for(const t in acc)if(acc[t]>bv){bv=acc[t];best=t}return PSC[r.id]=best}
+const FAT={butter:82,lf_butter:82,obers:36,lf_obers:36,hafercuisine:15,sauerrahm:15,lf_sauerrahm:15,bergkaese:32,lf_kaese:32,mozzarella:19,parmesan:28,feta:21,topfen:5,lf_topfen:5,joghurt:3.5,lf_joghurt:3.5,milch:3.5,lf_milch:3.5,ei:10,rindfaschiert:15,putenfaschiert:8,rind:8,suppenfleisch:10,tafelspitz:8,huhn:2,hendlkeule:10,pute:2,putenfleisch:2,lamm:18,lachs:13,lachsforelle:8,forelle:3,kabeljau:1,thunfisch:1,raeucherforelle:5,garnelen:1,hirsch:3,kaninchen:5,speck:45,leberkaese:25,putenleberkaese:12,kotelett:12,kochschinken:5,frankfurter:27,putenwurst:20,knacker:28,extrawurst:25,rindswurst:25,putenschinken:4,oel:100,olivenoel:100,kernoel:100,leinoel:100,kokosmilch:18,walnuss:65,kuerbiskerne:46,pinienkerne:68,haferflocken:7,gf_hafer:7,kichererbsen:3,pizzateig:8,gf_pizza:8,strudelteig:5,gf_strudel:5,mehl:1,brot:1.5,semmel:2};
+const PROC=new Set('leberkaese putenleberkaese speck kochschinken frankfurter putenwurst knacker extrawurst rindswurst putenschinken pizzateig gf_pizza toastbrot strudelteig gf_strudel marmelade staubzucker kakao tortilla gf_tortilla'.split(' '));
+const FATC={};function fatOf(r){if(r.id in FATC)return FATC[r.id];let f=0;for(const [k,q,o] of r.i){if(o)continue;f+=grams(k,q)*(FAT[k]||0)/100}return FATC[r.id]=f}
+function isClean(r){const fr=r.c.includes('Frühstück');if(r.c.includes('Süß'))return false;if(r.i.some(([k,q,o])=>!o&&PROC.has(k)))return false;if(r.i.some(([k,q])=>k==='zucker'&&q>5))return false;return fatOf(r)<=(fr?14:17)&&tags(r).P>=(fr?18:25)}
+const BASES=[['Nudeln','Nudeln',['spaghetti','fleckerl','hoernchen','gf_nudeln','reisnudeln','glasnudeln','nockerl']],['Erdaepfel','Erdäpfel',['erdaepfel','suesskartoffel']],['Reis','Reis',['reis']],['Brot','Brot und Knödel',['knoedelbrot','brot','semmel','gf_brot','gf_semmel','toastbrot','tortilla','gf_tortilla']]];
+const hasBase=(r,b)=>{const B=BASES.find(x=>x[0]===b);return !B||r.i.some(([k,q,o])=>!o&&B[2].includes(k))||(b==='Nudeln'&&/nudel|nockerl|spätzle|fleckerl/i.test(r.n))};
+const ERW=new Set('chili chili_veg dal curry huehnercurry putencurry kokossuppe rind_brokkoli lachs_teriyaki glasnudeln cevapcici shakshuka kichererbsen_pfanne linsensalat forellensalat rindfleischsalat bohnensalat'.split(' '));
+const FINGER=new Set('gebackenes_gemuese nuggets airfryer_keulen huehnerstreifen fasch_laibchen putenlaibchen_ofen pizzatoast pizza wraps erdaepfelpuffer toast bananen_pancakes palatschinken gemueselaibchen putenspiess'.split(' '));
 const cheapFast=r=>r.t<=30&&resolve(r,present().length?present():S.members).cpp<=2.6;
-const tagChips=r=>{const t=tags(r);return (psrc(r)?'<span class="tag">Eiweiß aus '+PSRC[psrc(r)]+'</span>':'')+(KIDS.has(r.id)?'<span class="tag sun">Kinder lieben</span>':'')+(tmOn()&&TMOK.has(r.id)?'<span class="tag">Thermomix</span>':'')+(t.eiweiss?'<span class="tag blue">Eiweißreich</span>':'')+(t.gemuese?'<span class="tag sage">Viel Gemüse</span>':'')+(t.leicht?'<span class="tag sun">Leicht</span>':'')};
+const tagChips=r=>{const t=tags(r);return (isClean(r)?'<span class="tag sage">Clean und leicht</span>':'')+(psrc(r)?'<span class="tag">Eiweiß aus '+PSRC[psrc(r)]+'</span>':'')+(KIDS.has(r.id)?'<span class="tag sun">Kinder lieben</span>':'')+(FINGER.has(r.id)?'<span class="tag sun">Fingerfood</span>':'')+(ERW.has(r.id)?'<span class="tag">Eher für Erwachsene</span>':'')+(tmOn()&&TMOK.has(r.id)?'<span class="tag">Thermomix</span>':'')+(t.eiweiss?'<span class="tag blue">Eiweißreich</span>':'')+(t.gemuese?'<span class="tag sage">Viel Gemüse</span>':'')+(t.leicht?'<span class="tag sun">Leicht</span>':'')};
 const GOALS={abnehmen:'Leichter werden',eiweiss:'Viel Eiweiß fürs Training'};
-const KIDS=new Set('chili wraps eiernockerl schinkenfleckerl erdaepfelpuffer geschnetzeltes thunfischnudeln paradeissuppe toast nudelsalat brokkoli_auflauf bananen_pancakes cevapcici gemueselaibchen fisch_reis tomatennudeln kaesespaetzle huehnerstreifen fischstaebchen wuerstel_pueree risibisi milchreis griesskoch bolognese wurstfleckerl fasch_laibchen pizza palatschinken kaiserschmarrn schnitzel gebratene_reisnudeln kaspress huehnersuppe rindsuppe griess'.split(' '));
+const KIDS=new Set('gebackenes_gemuese zucchini_cordon tomatennudeln bolognese puten_bolognese carbonara wurstfleckerl schinkenfleckerl eiernockerl pizza pizzatoast kaesespaetzle huehnerstreifen nuggets airfryer_keulen bratkartoffeln wuerstel_pueree fasch_laibchen putenlaibchen_ofen schnitzel putenschnitzel_natur risibisi thunfischnudeln brokkoli_auflauf erdaepfelpuffer toast wraps paradeissuppe huehnersuppe rindsuppe griess milchreis griesskoch palatschinken kaiserschmarrn bananen_pancakes'.split(' '));
 function plate(m,r,res){
   const L=[], t=tags(r), goals=m.goals||[];
   if(m.blut in BI){
@@ -821,7 +878,7 @@ function fitClass(m,r){const res=resolve(r,[m],'hinweis');if(res.blocked)return 
   const easy=bad.every(x=>{const sw=BSWAP[x.k];return GRP[x.k]==='K'||GRP[x.k]==='F'||(sw&&bv(sw,m.blut)!=='-')||x.q<40});
   return easy?1:2}
 function personScore(m,r){const res=resolve(r,[m],'hinweis');return res.score}
-const WEG=['fischeintopf','reisnudelsalat','glasnudeln','eierreis','eingebrannter_hund'];for(let i=R.length-1;i>=0;i--)if(WEG.includes(R[i].id))R.splice(i,1);
+const WEG=['fischstaebchen','fischeintopf','reisnudelsalat','glasnudeln','eierreis','eingebrannter_hund'];for(let i=R.length-1;i>=0;i--)if(WEG.includes(R[i].id))R.splice(i,1);
 R.forEach(r=>RX[r.id]=r);
 const MEAT=Object.keys(ING).filter(k=>ING[k][3]==='F'&&!ING[k][4].includes('fisch'));
 const FISH=Object.keys(ING).filter(k=>ING[k][3]==='F'&&ING[k][4].includes('fisch'));
@@ -935,6 +992,7 @@ function resolve(r,eaters,mode){
     for(const w of dl){ if(live.some(x=>ING[x.k][0].toLowerCase().includes(w))||r.n.toLowerCase().includes(w)){score-=4;hints.push({m,t:'mag kein '+w.charAt(0).toUpperCase()+w.slice(1)})} }
     if(r.c.some(c=>(m.likes||[]).includes(c)))score+=1.5;
     if((m.typ==='kind'||m.typ==='kleinkind')&&KIDS.has(r.id))score+=2.5;
+    if((m.typ==='kind'||m.typ==='kleinkind')&&ERW.has(r.id)){score-=3;hints.push({m,t:'eher Erwachsenenessen, für Kinder milder würzen oder Beilage extra'})}
     const dv=(m.dish||{})[r.id]; if(dv>0)score+=3; else if(dv<0){score-=30;hints.push({m,t:'mag dieses Gericht nicht'})}
     const fi=foodsIn(r);
     for(const fk in (m.food||{})){ if(!fi.has(fk))continue; if(m.food[fk]>0)score+=1.2; else {score-=5;hints.push({m,t:'mag '+FOOD[fk][1]+' nicht'})} }
@@ -1251,18 +1309,19 @@ function mealRow(p,j,cost){
 const TILES=[['Frühstück','Frühstück','haferbrei'],['Fleisch','Mittag und Abend','faschiert'],['Suppe','Suppen','kuerbis'],['Kinder','Kinder lieben','kaiserschmarrn'],['Kalt','Kalt und Salat','rindfleischsalat'],['Eiweißreich','Viel Eiweiß','rind_brokkoli'],['Süß','Süßes','haferbrei']];
 function renderRezepte(){
   const f=S.rfilter||'Alle', q=(S.rq||'').toLowerCase();
-  const list=R.filter(r=>{const t=tags(r);return (!q||r.n.toLowerCase().includes(q))&&(f==='Alle'||r.c.includes(f)||(f==='Günstig'&&resolve(r,present()).cpp<2.6)||(f==='Schnell'&&r.t<=30)||(f==='Vegetarisch'&&t.veg)||(f==='Eiweißreich'&&t.eiweiss)||(f==='Leicht'&&t.leicht)||(f==='Kinder'&&KIDS.has(r.id))||(f==='SchnellGuenstig'&&cheapFast(r))||(f==='Pflanzlich'&&psrc(r)==='H')||(f==='Gemerkt'&&S.fav?.[r.id])||(f==='Thermomix'&&TMOK.has(r.id))||(f==='Reisnudeln'&&t.reisnudel))}).sort((a,b)=>a.n.localeCompare(b.n,'de'));
+  const list=R.filter(r=>{const t=tags(r);return (!q||r.n.toLowerCase().includes(q))&&hasBase(r,S.rbase)&&(f==='Alle'||r.c.includes(f)||(f==='Günstig'&&resolve(r,present()).cpp<2.6)||(f==='Schnell'&&r.t<=30)||(f==='Vegetarisch'&&t.veg)||(f==='Eiweißreich'&&t.eiweiss)||(f==='Leicht'&&t.leicht)||(f==='Clean'&&isClean(r))||(f==='Kinder'&&KIDS.has(r.id))||(f==='Finger'&&FINGER.has(r.id))||(f==='SchnellGuenstig'&&cheapFast(r))||(f==='Pflanzlich'&&psrc(r)==='H')||(f==='Gemerkt'&&S.fav?.[r.id])||(f==='Thermomix'&&TMOK.has(r.id))||(f==='Reisnudeln'&&t.reisnudel))}).sort((a,b)=>a.n.localeCompare(b.n,'de'));
   $('#main').innerHTML=`<section class="row between"><h2>Rezepte aus der <em>österreichischen</em> Küche</h2><span class="small muted">${R.length} Gerichte, Mengen und Preise für eure Familie</span></section>
   <div class="tiles">${TILES.map(([k,l,ph])=>`<button class="tile ${f===k?'on':''}" data-a="rfilter" data-v="${k}">${FOTOS[ph]?`<img src="${FOTOS[ph]}" alt="" loading="lazy">`:''}<span>${l}</span></button>`).join('')}</div>
   <input type="text" id="r-q" data-in="rq" value="${esc(S.rq||'')}" placeholder="Rezept suchen, zum Beispiel Linsen">
-  <div class="filters">${[['Alle','Alle'],['SchnellGuenstig','Schnell und günstig'],['Pflanzlich','Eiweiß aus Hülsenfrüchten'],['Gemerkt','Gemerkt'],['Kinder','Kinder'],['Neu','Neu'],['Eintopf','Eintopf']].map(([v,l])=>`<button class="chip ${f===v?'on':''}" data-a="rfilter" data-v="${v}">${l}</button>`).join('')}${['Gemüse','Fisch','Vegetarisch','Asiatisch','Leicht','Günstig','Schnell','Thermomix'].map(x=>`<button class="chip ${f===x?'on':''}" data-a="rfilter" data-v="${x}">${x}</button>`).join('')}</div>
+  <div class="row" style="gap:6px;align-items:center;margin:2px 0 8px"><span class="small muted" style="font-weight:700;margin-right:4px">Womit</span>${BASES.map(([v,l])=>`<button class="chip sm ${S.rbase===v?'on':''}" data-a="rbase" data-v="${v}">${l}</button>`).join('')}</div>
+  <div class="filters">${[['Alle','Alle'],['Clean','Clean und leicht'],['SchnellGuenstig','Schnell und günstig'],['Pflanzlich','Eiweiß aus Hülsenfrüchten'],['Gemerkt','Gemerkt'],['Kinder','Kinder'],['Finger','Fingerfood'],['Eintopf','Eintopf']].map(([v,l])=>`<button class="chip ${f===v?'on':''}" data-a="rfilter" data-v="${v}">${l}</button>`).join('')}${['Gemüse','Fisch','Vegetarisch','Asiatisch','Günstig','Schnell','Thermomix'].map(x=>`<button class="chip ${f===x?'on':''}" data-a="rfilter" data-v="${x}">${x}</button>`).join('')}</div>
   <p class="small muted" style="margin:0">${list.length} ${list.length===1?'Rezept':'Rezepte'}</p>
   <div class="rlist">${list.map(r=>{const res=resolve(r,present());
     const badge=(S.fav?.[r.id]?'<span class="tag blue">Gemerkt</span>':'')+(S.never?.[r.id]?'<span class="tag warn">Nie wieder</span>':'')+(res.blocked?`<span class="tag warn">nicht für alle</span>`:res.hints.length?`<span class="tag sun">${res.hints.length} ${res.hints.length===1?'Hinweis':'Hinweise'}</span>`:`<span class="tag sage">passt für alle</span>`);
     return `<button class="rrow" data-a="openr" data-id="${r.id}"><span class="name">${esc(r.n)}</span><span class="meta"><span>${r.t} Min.</span><span>ca. ${eur(res.cpp)} pro Portion</span></span><span class="tags">${tagChips(r)}${badge}</span></button>`}).join('')||'<p class="muted">Dazu gibt es kein Rezept. Probier einen anderen Filter.</p>'}</div>`;
 }
 const HOMEGRP=[['Fleisch und Fisch','F'],['Obst und Gemüse','G'],['Tiefkühl','K'],['Milch und Eier','M'],['Vorrat','T'],['Brot','B'],['Glutenfrei und laktosefrei','S']];
-const SOFT=new Set(['petersilie','schnittlauch','dille','basilikum','thymian','majoran','kuemmel','lorbeer','zitrone','fruehlingszwiebel','kren','ingwer']);
+const SOFT=new Set(['petersilie','schnittlauch','dill','basilikum','thymian','majoran','kuemmel','lorbeer','zitrone','fruehlingszwiebel','kren','ingwer']);
 const HSYN={kartoffel:'erdäpfel',tomate:'paradeiser',hack:'faschiert',quark:'topfen',sahne:'obers',rahm:'sauerrahm',hähnchen:'hühner',hühnchen:'hühner',huhn:'hühner',hendl:'hühner',pilz:'champignons schwammerl',möhre:'karotten',wurst:'würstel extrawurst knacker',nudel:'spaghetti fleckerl hörnchen nudeln',käse:'käse mozzarella parmesan',bohne:'bohnen fisolen',fisch:'forelle lachs kabeljau thunfisch',semmel:'semmeln',brot:'brot semmel toast'};
 function homeScore(k,q){const n=ING[k][0].toLowerCase();if(n===q||n===q+'n'||n===q+'s'||n===q+'r'||n===q+'e')return 0;if(n.startsWith(q))return 1;if(n.split(/[ \-]/).some(w=>w.startsWith(q)))return 2;
   for(const w in HSYN)if((q.length>=3&&w.startsWith(q))||q.startsWith(w))if(HSYN[w].split(' ').some(a=>n.includes(a)))return 3;if(q.length>=4&&n.includes(q))return 4;return 9}
@@ -1513,6 +1572,7 @@ document.addEventListener('click',e=>{
   case 'mf':sheet.f=v;break;
   case 'por':sheet.por=Math.max(1,Math.min(20,sheet.por+(+v)));break;
   case 'rfilter':S.rfilter=v;break;
+    case 'rbase':S.rbase=S.rbase===v?null:v;break;
   case 'mdishopen':sheet={type:'mdish',id:sheet.id,back:sheet};break;
   case 'mdish':if(m){m.dish=m.dish||{};const c=m.dish[v];if(!c)m.dish[v]=1;else if(c>0)m.dish[v]=-1;else delete m.dish[v];touchFam()}break;
   case 'porset':sheet.por=+v;break;
