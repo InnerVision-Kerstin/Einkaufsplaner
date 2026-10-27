@@ -1345,7 +1345,8 @@ function renderEinkauf(){
     <div style="text-align:right"><div class="big-num">${eur(total)}</div><div class="small muted">${open} offen</div></div></div>
     ${Object.keys(S.home||{}).length?`<div class="optrow"><span class="small">${Object.keys(S.home).length} Sachen hast du als daheim angetippt. Die stehen nicht auf der Liste.</span><button class="btn sm ghost" data-a="tab" data-v="daheim">Daheim ändern</button></div>`:`<div class="optrow"><span class="small">Tipp unter Daheim an, was du schon hast. Dann steht hier nur, was wirklich fehlt.</span><button class="btn sm ghost" data-a="tab" data-v="daheim">Zu Daheim</button></div>`}
     <button class="toggle ${S.settings.pantry?'on':''}" data-a="sbool" data-f="pantry" style="margin-top:8px"><span><b>Gewürze und Öl ausblenden</b><br><span class="small muted">Salz, Kümmel, Essig und Co hast du meistens daheim</span></span><span class="sw"></span></button>
-    <div class="row" style="margin-top:8px"><button class="btn primary" data-a="copy">Liste kopieren</button><button class="btn ghost" data-a="uncheck">Haken zurücksetzen</button></div>
+    <div class="row" style="margin-top:8px"><button class="btn primary" data-a="share">Liste schicken</button><button class="btn" data-a="copy">Liste kopieren</button><button class="btn ghost" data-a="uncheck">Haken zurücksetzen</button></div>
+    <p class="small muted" style="margin:6px 0 0">Schicken öffnet WhatsApp, Nachrichten oder Mail. Was du schon abgehakt hast, kommt nicht mit.</p>
     <textarea id="copyfb" rows="6" hidden readonly style="margin-top:10px"></textarea>
   </section>
   <section class="card">
@@ -1540,6 +1541,7 @@ document.addEventListener('click',e=>{
   case 'check':{const ck=String(S.shopScope)+':'+t.dataset.k;if(S.checked[ck])delete S.checked[ck];else S.checked[ck]=true;break}
   case 'uncheck':{const pre=String(S.shopScope)+':';Object.keys(S.checked).forEach(k=>{if(k.startsWith(pre))delete S.checked[k]});break}
   case 'copy':copyList();return;
+    case 'share':shareList();return;
   case 'reset':sheet={type:'reset'};break;
   case 'doreset':S=defaultState();generatePlan();sheet=null;break;
   default:return;
@@ -1566,11 +1568,16 @@ document.addEventListener('change',e=>{
 });
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='x-new'){$('[data-a="xadd"]').click();return}if(e.key==='Enter'&&e.target.classList?.contains('member')){e.target.click();return}if(e.key==='Escape'&&sheet){sheet=null;renderSheet()}if(e.key==='Enter'&&e.target.id==='home-q'){const q=(S.homeQ||'').toLowerCase().trim();const c=[...document.querySelectorAll('#main [data-a="home"]:not(.like)')].map(x=>x.dataset.v).sort((a,b)=>homeScore(a,q)-homeScore(b,q)||ING[a][0].length-ING[b][0].length);const b=c[0];if(b&&q){S.home=S.home||{};S.home[b]=true;S.homeQ='';save();renderDaheim();$('#home-q')?.focus()}return}if(e.key==='Enter'&&e.target.id==='newshop'){$('[data-a="addshop"]').click()}});
 function keepFocus(id){const v=$('#'+id)?.value;render();const el=$('#'+id);if(el){el.focus();try{el.setSelectionRange(String(v).length,String(v).length)}catch(_){}}}
-function copyList(){
+function listText(){
   const data=shoppingData(); let txt=S.shopScope==='woche'?'Einkaufsliste für die Woche\n':'Einkaufsliste für '+dayLong(S.shopScope)+'\n';
   for(const sh of Object.keys(data).sort((a,b)=>S.shops.indexOf(a)-S.shops.indexOf(b))){let part='';
     for(const sec of Object.keys(data[sh]))for(const x of data[sh][sec])if(!S.checked[String(S.shopScope)+':'+x.k])part+='• '+(x.extra?x.label:fmtShop(x.k,x.q)+' '+ING[x.k][0]+(pieceHint(x.k,x.q)?' ('+pieceHint(x.k,x.q)+')':''))+'\n';
     if(part)txt+='\n'+sh+'\n'+part;}
+  return txt}
+function shareList(){const txt=listText();
+  if(navigator.share){navigator.share({title:'Einkaufsliste',text:txt}).catch(e=>{if(e&&e.name!=='AbortError')window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank')});return}
+  window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank')}
+function copyList(){const txt=listText();
   const fb=()=>{const ta=$('#copyfb');ta.hidden=false;ta.value=txt;ta.focus();ta.select();toast('Markiert, jetzt kopieren')};
   try{navigator.clipboard.writeText(txt).then(()=>toast('Liste kopiert, zum Beispiel in WhatsApp einfügen')).catch(fb)}catch(_){fb()}
 }
